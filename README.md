@@ -1,7 +1,7 @@
 # creating-a-pipeline-in-blue-ocean
 
 This repository is for the
-[Creating a Pipeline in Blue Ocean](https://jenkins.io/doc/tutorials/creating-a-pipeline-in-blue-ocean/)
+[Create a Pipeline in Blue Ocean](https://jenkins.io/doc/tutorials/create-a-pipeline-in-blue-ocean/)
 tutorial in the [Jenkins User Documentation](https://jenkins.io/doc/).
 
 The repository contains a simple Node.js and React application which generates
