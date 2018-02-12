@@ -25,7 +25,10 @@ pipeline {
         stage('Deliver') {
           steps {
             sh './jenkins/scripts/deliver.sh '
-            input 'Finished using the web site? (Click "Proceed" to continue)'
+            input(
+        id: 'Proceed1', message: 'Was this successful?', parameters: [
+        [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
+        ])
             sh './jenkins/scripts/kill.sh'
           }
         }
