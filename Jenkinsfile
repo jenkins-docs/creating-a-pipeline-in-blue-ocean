@@ -1,4 +1,4 @@
-pipeline {
+node {
   agent {
     docker {
       image 'node:6-alpine'
