@@ -30,6 +30,7 @@ pipeline {
           }
         }
         stage('Another Stage') {
+          steps {
             echo ('working')
           }
         }
