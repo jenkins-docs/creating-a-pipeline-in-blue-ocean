@@ -25,20 +25,18 @@ pipeline {
         stage('Deliver2') {
           steps {
             sh './jenkins/scripts/deliver.sh '
-            input(
-        id: 'Proceed1', message: 'Was this successful?', parameters: [
-        [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
-        ])
-            sh './jenkins/scripts/kill.sh'
+            input(id: 'Proceed1', message: 'Was this successful?', parameters: [
+                      [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
+                      ])
+              sh './jenkins/scripts/kill.sh'
+            }
           }
-        }
-        stage('Another Stage') {
-          steps {
-            echo ('working')
-            
+          stage('Another Stage') {
+            steps {
+              echo 'working'
+            }
           }
         }
       }
     }
   }
-}
