@@ -22,7 +22,7 @@ pipeline {
     }
     stage('Deliver') {
       parallel {
-        stage('Deliver') {
+        stage('Deliver2') {
           steps {
             sh './jenkins/scripts/deliver.sh '
             input(
