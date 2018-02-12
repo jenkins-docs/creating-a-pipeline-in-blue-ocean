@@ -13,11 +13,20 @@ pipeline {
       }
     }
     stage('Test') {
-      environment {
-        CI = 'true'
-      }
-      steps {
-        sh './jenkins/scripts/test.sh'
+      parallel {
+        stage('Test') {
+          environment {
+            CI = 'true'
+          }
+          steps {
+            sh './jenkins/scripts/test.sh'
+          }
+        }
+        stage('Upload File') {
+          steps {
+            echo 'insert here'
+          }
+        }
       }
     }
     stage('Deliver') {
@@ -26,10 +35,10 @@ pipeline {
           steps {
             sh './jenkins/scripts/deliver.sh '
             input(id: 'Proceed1', message: 'Was this successful?', parameters: [
-                                    [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
-                                    [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
-                                    [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
-                                    ])
+                                                  [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
+                                                  [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
+                                                  [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+                                                  ])
               sh './jenkins/scripts/kill.sh'
             }
           }
