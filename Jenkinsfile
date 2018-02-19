@@ -1,4 +1,4 @@
-node {
+pipeline {
   agent {
     docker {
       image 'node:6-alpine'
@@ -13,16 +13,11 @@ node {
       }
     }
     stage('Test') {
-      parallel {
-        stage('Test') {
-          environment {
-            CI = 'true'
-          }
-          steps {
-            sh './jenkins/scripts/test.sh'
-          }
-        }
-        
+      environment {
+        CI = 'true'
+      }
+      steps {
+        sh './jenkins/scripts/test.sh'
       }
     }
     stage('Deliver') {
@@ -31,10 +26,10 @@ node {
           steps {
             sh './jenkins/scripts/deliver.sh '
             input(id: 'Proceed1', message: 'Was this successful?', parameters: [
-                                                  [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
-                                                  [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
-                                                  [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
-                                                  ])
+                                    [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
+                                    [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
+                                    [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+                                    ])
               sh './jenkins/scripts/kill.sh'
             }
           }
