@@ -25,10 +25,10 @@ pipeline {
         stage('Validate Against Sandbox') {
           steps {
             input(id: 'Proceed1', message: 'Was this successful?', parameters: [
-                                                                              [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
-                                                                              [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
-                                                                              [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
-                                                                              ])
+                                                                                            [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
+                                                                                            [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
+                                                                                            [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+                                                                                            ])
             }
           }
           stage('Review Deployment Checklist') {
@@ -51,6 +51,16 @@ pipeline {
       stage('Full CI Validation') {
         steps {
           echo 'Full CI'
+        }
+      }
+      stage('Request Deploy to QA') {
+        steps {
+          input 'hello'
+        }
+      }
+      stage('Deploy to QA') {
+        steps {
+          input 'waiting'
         }
       }
     }
