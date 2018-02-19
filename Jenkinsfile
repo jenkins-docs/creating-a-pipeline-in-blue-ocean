@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Sonar Check') {
       steps {
-        sh 'npm install'
+        echo 'sonar'
       }
     }
     stage('Unit Test %') {
@@ -26,10 +26,10 @@ pipeline {
           steps {
             sh './jenkins/scripts/deliver.sh '
             input(id: 'Proceed1', message: 'Was this successful?', parameters: [
-                                                  [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
-                                                  [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
-                                                  [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
-                                                  ])
+                                                                [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
+                                                                [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
+                                                                [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+                                                                ])
               sh './jenkins/scripts/kill.sh'
             }
           }
