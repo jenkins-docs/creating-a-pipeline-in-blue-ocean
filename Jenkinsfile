@@ -12,37 +12,25 @@ pipeline {
         echo 'sonar'
       }
     }
-    stage('Unit Test %') {
-      environment {
-        CI = 'true'
-      }
-      steps {
-        echo 'demo'
-      }
-    }
-    stage('Validate Against Sandbox') {
+    stage('Build Validation') {
      
       parallel {
-        stage('Validate Against Sandbox') {
-           agent none
+        stage('Selective CI Validation') {     
           steps {
-            input(id: 'Proceed1', message: 'Was this successful?', parameters: [
-                                                                                                                        [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
-                                                                                                                        [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
-                                                                                                                        [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
-                                                                                                                        ])
-            }
-          }
-          stage('Review Deployment Checklist') {
-            steps {
               echo 'working'
             }
           }
-        }
-      }
-      stage('Validate Build') {
-        steps {
-          echo 'validate build'
+          stage('Review Deployment Checklist') {
+            agent none
+            steps {
+              input(id: 'Proceed1', message: 'Was this successful?', parameters: [
+                  [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
+                   [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
+                   [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+                   ])
+            }
+            
+          }
         }
       }
       stage('Merge Pull Request') {
@@ -50,6 +38,12 @@ pipeline {
           echo 'merge pull request'
         }
       }
+      stage('Validate Build') {
+        steps {
+          echo 'validate build'
+        }
+      }
+
       stage('Full CI Validation') {
         steps {
           echo 'Full CI'
