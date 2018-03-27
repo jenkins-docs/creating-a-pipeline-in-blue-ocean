@@ -32,12 +32,13 @@ pipeline {
       stage('AutoMerge') {
         steps {
           echo 'merge pull request'
-          sleep 5
+          sleep 4
         }
       }
       stage('Full CI Validation') {
         steps {
           echo 'Full CI'
+          sleep 7
         }
       }
       stage('Manual Pre Deployment to QA') {
@@ -51,6 +52,7 @@ pipeline {
         stage('Deploy to QA') {
           steps {
             input 'Proceed if the Sandbox is ready'
+            sleep 3
           }
         }
         stage('Manual Post Deployment to QA') {
