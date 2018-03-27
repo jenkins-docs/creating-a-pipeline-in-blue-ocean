@@ -21,10 +21,9 @@ pipeline {
         }
         stage('Review Deployment Checklist') {
           steps {
-            input(id: 'Proceed1', message: 'Was this successful?', parameters: [
-                                [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
-                                 [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
-                                 [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+            input(id: 'Proceed1', message: 'Is the Deployment Checklist ok?', parameters: [
+                  [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm you agree with this'],
+                  [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
                                  ])
             }
           }
@@ -35,19 +34,18 @@ pipeline {
           echo 'merge pull request'
         }
       }
-      stage('Validate Build') {
-        steps {
-          echo 'validate build'
-        }
-      }
       stage('Full CI Validation') {
         steps {
           echo 'Full CI'
         }
       }
-      stage('Request Deploy to QA') {
+      stage('Manual Pre Deployment to QA) {
         steps {
-          input 'hello'
+           input(id: 'Proceed1', message: 'Was this successful?', parameters: [
+                  [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
+                  [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
+                   [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+                                 ])
         }
       }
       stage('Deploy to QA') {
