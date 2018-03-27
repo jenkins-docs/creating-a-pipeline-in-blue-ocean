@@ -39,7 +39,7 @@ pipeline {
           echo 'Full CI'
         }
       }
-      stage('Manual Pre Deployment to QA) {
+      stage('Manual Pre Deployment to QA') {
         steps {
 
         }
