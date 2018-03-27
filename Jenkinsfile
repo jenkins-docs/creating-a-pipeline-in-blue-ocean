@@ -12,7 +12,8 @@ pipeline {
             docker {
               image 'node:6-alpine'
               args '-p 3001:3001'
-         }
+            }
+        }
       steps {
         echo 'sonar'
         sleep 7
