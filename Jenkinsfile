@@ -10,6 +10,7 @@ pipeline {
     stage('Sonar Quality') {
       steps {
         echo 'sonar'
+        sleep 4
       }
     }
     stage('Build Validation') {
@@ -17,6 +18,7 @@ pipeline {
         stage('Selective CI Validation') {
           steps {
             echo 'working'
+            sleep 5
           }
         }
         stage('Review Deployment Checklist') {
@@ -42,10 +44,10 @@ pipeline {
           sleep 7
         }
       }
-      stage('Manual Pre Deployment to QA') {
+      stage('Manual Pre QA') {
         agent none
         steps {
-          input(id: 'Proceed4', message: 'Are all Manual steps performed?', parameters: [
+          input(id: 'Proceed4', message: 'Are all Manual steps for SharedQAperformed?', parameters: [
            [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
             [$class: 'TextParameterDefinition', defaultValue: '', description: 'Comments if false', name: 'env'],
              ])
@@ -54,21 +56,21 @@ pipeline {
         stage('Deploy to QA') {
           agent none
           steps {
-            input 'Proceed if the Sandbox is ready'
+            input 'Proceed if the SharedQA Sandbox is ready'
             sleep 3
           }
         }
-        stage('Manual Post Deployment to QA') {
+        stage('Manual Post QA') {
           agent none
           steps {
-            input(id: 'Proceed2', message: 'Are all Post Deployment steps performed?', parameters: [
+            input(id: 'Proceed2', message: 'Are all Post Deployment steps for SharedQA performed?', parameters: [
               [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
                [$class: 'TextParameterDefinition', defaultValue: '', description: 'Comments if false', name: 'env'],
                                                                                                    ])
             }
         }
     
-          stage('Functional QA Testing Evidence') {
+          stage('Functional QA Test Evidence') {
             parallel {
               stage ('Provide the evidence') {
                 agent none
@@ -92,10 +94,10 @@ pipeline {
       }
     
     
-       stage('Manual Pre Deployment to PreProd') {
+       stage('Manual Pre PreProd') {
         agent none
         steps {
-          input(id: 'Proceed4', message: 'Are all Manual steps performed?', parameters: [
+          input(id: 'Proceed4', message: 'Are all Manual steps for PreProd performed?', parameters: [
            [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
             [$class: 'TextParameterDefinition', defaultValue: '', description: 'Comments if false', name: 'env'],
              ])
@@ -108,10 +110,10 @@ pipeline {
             sleep 3
           }
         }
-        stage('Manual Post Deployment to PreProd') {
+        stage('Manual Post PreProd') {
           agent none
           steps {
-            input(id: 'Proceed2', message: 'Are all Post Deployment steps performed?', parameters: [
+            input(id: 'Proceed2', message: 'Are all Post Deployment steps for PreProd performed?', parameters: [
               [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
                [$class: 'TextParameterDefinition', defaultValue: '', description: 'Comments if false', name: 'env'],
                                                                                                    ])
