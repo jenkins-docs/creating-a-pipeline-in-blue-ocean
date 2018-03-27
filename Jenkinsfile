@@ -56,7 +56,7 @@ pipeline {
         stage('Manual Post Deployment to QA') {
           Agent None
           steps {
-            input(id: 'Proceed1', message: 'Are all Manual steps performed?', parameters: [
+            input(id: 'Proceed2', message: 'Are all Manual steps performed?', parameters: [
                                               [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
                                               [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
                                                              ])
@@ -65,7 +65,7 @@ pipeline {
           stage('Functional QA Testing Evidence') {
             Agent None
             steps {
-                  input(id: 'Proceed1', message: 'Please provide a link to where the testing evidence is uploaded to Confluence', parameters: [
+                  input(id: 'Proceed3', message: 'Please provide a link to where the testing evidence is uploaded to Confluence', parameters: [
                                           [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
                                           [$class: 'TextParameterDefinition', defaultValue: 'Location of Testing Evidence', description: 'Environment', name: 'env'],
                                           ])
