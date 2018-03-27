@@ -41,12 +41,25 @@ pipeline {
         }
       }
       stage('AutoMerge') {
+          agent {
+            docker {
+              image 'node:6-alpine'
+              args '-p 3001:3001'
+            }
+          }
         steps {
           echo 'merge pull request'
           sleep 5
         }
       }
       stage('Full CI Validation') {
+          agent {
+            docker {
+              image 'node:6-alpine'
+              args '-p 3001:3001'
+            }
+          }
+        
         steps {
           echo 'Full CI'
           sleep 10
