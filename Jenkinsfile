@@ -10,7 +10,7 @@ pipeline {
     stage('Sonar Quality') {
       steps {
         echo 'sonar'
-        sleep 4
+        sleep 7
       }
     }
     stage('Build Validation') {
@@ -18,7 +18,7 @@ pipeline {
         stage('Selective CI Validation') {
           steps {
             echo 'working'
-            sleep 5
+            sleep 10
           }
         }
         stage('Review Deployment Checklist') {
@@ -35,13 +35,13 @@ pipeline {
       stage('AutoMerge') {
         steps {
           echo 'merge pull request'
-          sleep 4
+          sleep 5
         }
       }
       stage('Full CI Validation') {
         steps {
           echo 'Full CI'
-          sleep 7
+          sleep 10
         }
       }
       stage('Manual Pre QA') {
@@ -57,7 +57,7 @@ pipeline {
           agent none
           steps {
             input 'Proceed if the SharedQA Sandbox is ready'
-            sleep 3
+            sleep 5
           }
         }
         stage('Manual Post QA') {
@@ -107,7 +107,7 @@ pipeline {
           agent none
           steps {
             input 'Proceed if the Sandbox is ready'
-            sleep 3
+            sleep 5
           }
         }
         stage('Manual Post PreProd') {
