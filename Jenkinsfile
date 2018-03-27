@@ -13,27 +13,24 @@ pipeline {
       }
     }
     stage('Build Validation') {
-     
       parallel {
-        stage('Selective CI Validation') {     
+        stage('Selective CI Validation') {
           steps {
-              echo 'working'
-            }
+            echo 'working'
           }
-          stage('Review Deployment Checklist') {
-            agent none
-            steps {
-              input(id: 'Proceed1', message: 'Was this successful?', parameters: [
-                  [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
-                   [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
-                   [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
-                   ])
+        }
+        stage('Review Deployment Checklist') {
+          steps {
+            input(id: 'Proceed1', message: 'Was this successful?', parameters: [
+                                [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
+                                 [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
+                                 [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+                                 ])
             }
-            
           }
         }
       }
-      stage('Merge Pull Request') {
+      stage('AutoMerge') {
         steps {
           echo 'merge pull request'
         }
@@ -43,7 +40,6 @@ pipeline {
           echo 'validate build'
         }
       }
-
       stage('Full CI Validation') {
         steps {
           echo 'Full CI'
