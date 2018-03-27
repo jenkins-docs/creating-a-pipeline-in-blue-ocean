@@ -56,5 +56,17 @@ pipeline {
         }
       }
     
+     stage('Manual Post Deployment to QA') {
+      agent none
+      steps {
+        input(id: 'Proceed2', message: 'Are all Post Deployment steps performed?', parameters: [
+                                          [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
+                                          [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
+                                                         ])
+       }
+      }
+    
+    
+    
    }
   }
