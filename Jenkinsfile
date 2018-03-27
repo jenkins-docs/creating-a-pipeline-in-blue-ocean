@@ -21,6 +21,7 @@ pipeline {
       }
     }
     stage('Validate Against Sandbox') {
+      agent none
       parallel {
         stage('Validate Against Sandbox') {
           steps {
