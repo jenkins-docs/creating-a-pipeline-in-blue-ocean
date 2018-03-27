@@ -92,7 +92,7 @@ pipeline {
       }
     
     
-          stage('Manual Pre Deployment to QA') {
+       stage('Manual Pre Deployment to PreProd') {
         agent none
         steps {
           input(id: 'Proceed4', message: 'Are all Manual steps performed?', parameters: [
@@ -101,14 +101,14 @@ pipeline {
              ])
           }
         }
-        stage('Deploy to QA') {
+        stage('Deploy to PreProd') {
           agent none
           steps {
             input 'Proceed if the Sandbox is ready'
             sleep 3
           }
         }
-        stage('Manual Post Deployment to QA') {
+        stage('Manual Post Deployment to PreProd') {
           agent none
           steps {
             input(id: 'Proceed2', message: 'Are all Post Deployment steps performed?', parameters: [
