@@ -67,7 +67,7 @@ pipeline {
       }
     
     stage('Functional QA Testing Evidence') {
-      Agent None
+      agent none
       steps {
             input(id: 'Proceed3', message: 'Please provide a link to where the testing evidence is uploaded to Confluence', parameters: [
                                     [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
