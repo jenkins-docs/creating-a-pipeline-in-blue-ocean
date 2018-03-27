@@ -23,8 +23,8 @@ pipeline {
     stage('Validate Against Sandbox') {
      
       parallel {
-         agent none
         stage('Validate Against Sandbox') {
+           agent none
           steps {
             input(id: 'Proceed1', message: 'Was this successful?', parameters: [
                                                                                                                         [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
