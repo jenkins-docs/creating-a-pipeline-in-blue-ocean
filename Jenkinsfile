@@ -8,7 +8,6 @@ pipeline {
             docker {
               image 'node:6-alpine'
               args '-p 3001:3001'
-              label 'theAgent'
             }
         }
       steps {
@@ -19,6 +18,12 @@ pipeline {
     stage('Build Validation') {
       parallel {
         stage('Selective CI Validation') {
+          agent {
+            docker {
+              image 'node:6-alpine'
+              args '-p 3001:3001'
+            }
+          }
           steps {
             echo 'working'
             sleep 10
