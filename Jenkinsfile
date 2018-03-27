@@ -67,14 +67,31 @@ pipeline {
                                                                                                    ])
             }
           }
+    
           stage('Functional QA Testing Evidence') {
-            agent none
-            steps {
-              input(id: 'Proceed3', message: 'Please provide a link to where the testing evidence is uploaded to Confluence', parameters: [
-                                                                                    [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
-                                                                                    [$class: 'TextParameterDefinition', defaultValue: 'Location of Testing Evidence', description: 'Environment', name: 'env'],
-                                                                                    ])
+            parallel {
+              stage ('Provide the evidence') {
+                agent none
+                steps {
+                  input(id: 'Proceed3', message: 'Please provide a link to where the testing evidence is uploaded to Confluence', parameters: [
+                        [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
+                        [$class: 'TextParameterDefinition', defaultValue: 'Location of Testing Evidence', description: 'Environment', name: 'env'],
+                        ])
+                  }
               }
-            }
+              stage ('Enter the PreProd RFC') {
+                agent none
+                steps {
+                  input(id: 'Proceed5', message: 'Please PreProd RFC Number', parameters: [
+                        [$class: 'TextParameterDefinition', defaultValue: 'PreProd RFC Number', description: 'Environment', name: 'env'],
+                        ])
+                  }
+              }    
+         }     
+            
+      }
+    
+    
+    
           }
         }
