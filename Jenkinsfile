@@ -21,8 +21,9 @@ pipeline {
       }
     }
     stage('Validate Against Sandbox') {
-      agent none
+     
       parallel {
+         agent none
         stage('Validate Against Sandbox') {
           steps {
             input(id: 'Proceed1', message: 'Was this successful?', parameters: [
