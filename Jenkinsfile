@@ -20,12 +20,11 @@ pipeline {
           }
         }
         stage('Review Deployment Checklist') {
-          agent none
           steps {
             input(id: 'Proceed1', message: 'Is the Deployment Checklist ok?', parameters: [
-                  [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm you agree with this'],
-                  [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
-                                 ])
+                                [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm you agree with this'],
+                                [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
+                                               ])
             }
           }
         }
@@ -41,32 +40,30 @@ pipeline {
         }
       }
       stage('Manual Pre Deployment to QA') {
-        agent none
         steps {
           input(id: 'Proceed1', message: 'Are all Manual steps performed?', parameters: [
-                  [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
-                  [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
-                                 ])
+                              [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
+                              [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
+                                             ])
+          }
+        }
+        stage('Deploy to QA') {
+          steps {
+            input 'waiting'
+          }
+        }
+        stage('Manual Post Deployment to QA') {
+          steps {
+            input(id: 'Proceed1', message: 'Are all Manual steps performed?', parameters: [
+                                [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
+                                [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
+                                               ])
+            }
+          }
+          stage('Testing Evidence') {
+            steps {
+              echo 'testings'
+            }
+          }
         }
       }
-      stage('Deploy to QA') {
-        steps {
-          input 'waiting'
-        }
-      }
-      stage('Manual Post Deployment to QA') {
-        agent none
-        steps {
-          input(id: 'Proceed1', message: 'Are all Manual steps performed?', parameters: [
-                  [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
-                  [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
-                                 ])
-        }
-      }
-      stage('Testing Evidence') {
-        steps {
-          echo 'testings'
-        }
-      }
-    }
-  }
