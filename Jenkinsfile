@@ -22,9 +22,9 @@ pipeline {
         stage('Review Deployment Checklist') {
           steps {
             input(id: 'Proceed1', message: 'Is the Deployment Checklist ok?', parameters: [
-                                                                                        [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm you agree with this'],
-                                                                                        [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
-                                                                                                       ])
+                                                                                                      [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm you agree with this'],
+                                                                                                      [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
+                                                                                                                     ])
             }
           }
         }
@@ -44,9 +44,9 @@ pipeline {
       stage('Manual Pre Deployment to QA') {
         steps {
           input(id: 'Proceed4', message: 'Are all Manual steps performed?', parameters: [
-                                                                            [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
-                                                                            [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
-                                                                            ])
+                                                                                        [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
+                                                                                        [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
+                                                                                        ])
           }
         }
         stage('Deploy to QA') {
@@ -58,17 +58,17 @@ pipeline {
         stage('Manual Post Deployment to QA') {
           steps {
             input(id: 'Proceed2', message: 'Are all Post Deployment steps performed?', parameters: [
-                                                                      [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
-                                                                      [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
-                                                                                     ])
+                                                                                    [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
+                                                                                    [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
+                                                                                                   ])
             }
           }
           stage('Functional QA Testing Evidence') {
             steps {
               input(id: 'Proceed3', message: 'Please provide a link to where the testing evidence is uploaded to Confluence', parameters: [
-                                                                    [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
-                                                                    [$class: 'TextParameterDefinition', defaultValue: 'Location of Testing Evidence', description: 'Environment', name: 'env'],
-                                                                    ])
+                                                                                    [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
+                                                                                    [$class: 'TextParameterDefinition', defaultValue: 'Location of Testing Evidence', description: 'Environment', name: 'env'],
+                                                                                    ])
               }
             }
           }
