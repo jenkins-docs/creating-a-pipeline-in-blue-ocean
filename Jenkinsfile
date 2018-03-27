@@ -40,12 +40,21 @@ pipeline {
         }
       }
       stage('Manual Pre Deployment to QA') {
+        agent none
         steps {
           input(id: 'Proceed4', message: 'Are all Manual steps performed?', parameters: [
                                                     [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm'],
                                                     [$class: 'TextParameterDefinition', defaultValue: 'Comments if false', description: 'Environment', name: 'env'],
                                                     ])
-          }
+         }
+       }
+    
+      stage('Deploy to QA') {
+        agent none
+        steps {
+           input 'Proceed if the Sandbox is ready'
         }
       }
-    }
+    
+   }
+  }
