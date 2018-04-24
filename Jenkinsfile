@@ -24,7 +24,10 @@ pipeline {
         }
         stage('echo') {
           steps {
-            sh 'echo \'Hi friend\''
+            sh '''echo \'Hi friend\'
+
+
+exit 123'''
           }
         }
       }
