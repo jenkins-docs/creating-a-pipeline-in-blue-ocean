@@ -1,250 +1,518 @@
 ---
 swagger: "2.0"
 info:
-  description: "Request data from our smartbear library"
-  version: "1.0"
-  title: "SmartBear Library"
-host: "virtserver.swaggerhub.com"
-basePath: "/SmartBear_Software/sbLib/1.0"
+  description: Listed below are default resources and methods for accessing data in our library database. For more information contact info@librapi.com
+  version: jenkinsDocker
+  title: Smartbear Library API Documentation
+host: virtserver.swaggerhub.com
+basePath: /api/v2
 schemes:
-- "https"
+- https
 paths:
   /books:
     get:
       tags:
-      - "allUsers"
-      summary: "searches books"
-      description: "Returns array based on book search params."
-      operationId: "booksGET"
+      - books
+      summary: Retrives an array of book objects scoped to title or authorID.
+      description: This resource is used to search our book database, and retrieve a set of objects related to your query. If there are no objects to return, the API will still return a 200 Status, but the "results" set will be an empty array and should be accounted for something else that is he
       produces:
-      - "application/json"
+      - application/json
       parameters:
-      - name: "title"
-        in: "query"
-        description: "title search parameter"
+      - name: title
+        in: query
+        description: Title string to query. API will return both whole and partial matches dependent on the *fullMatch* parameter.
         required: false
-        type: "string"
-      - name: "author"
-        in: "query"
-        description: "author search parameter"
+        type: string
+      - name: fullMatch
+        in: query
+        description: Boolean value of whether or not to return and exact match to the title query string.
         required: false
-        type: "string"
+        type: boolean
+      - name: authorID
+        in: query
+        description: ID of author to retrieve related books. Similar functionality can be found by querying */authors/{id}/books* if that level is desired.
+        required: false
+        type: integer
       responses:
-        200:
-          description: "book successfully created"
-          schema:
-            $ref: "#/definitions/Books"
         404:
-          description: "server error"
+          description: server error
           schema:
-            $ref: "#/definitions/inline_response_404"
-      x-swagger-router-controller: "AllUsers"
+            $ref: '#/definitions/inline_response_404'
+        200:
+          description: Array of book objects is returned based on search criterias
+          schema:
+            $ref: '#/definitions/Books'
+    post:
+      tags:
+      - books
+      summary: POSTs a book object to our DB.
+      description: Returns object w/ID.
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: author object
+        description: author object
+        required: true
+        schema:
+          $ref: '#/definitions/Book_noID'
+      responses:
+        201:
+          description: Book object that was created
+          schema:
+            $ref: '#/definitions/Book'
+        404:
+          description: server error
+          schema:
+            $ref: '#/definitions/inline_response_404'
   /books/{id}:
     get:
       tags:
-      - "allUsers"
-      summary: "returns book object"
-      description: "Returns array based of search params."
-      operationId: "booksIdGET"
+      - books/{id}
+      summary: GETs a single book object with a bunch of data contained within.
+      description: Returns single book object based on ID
       produces:
-      - "application/json"
+      - application/json
       parameters:
-      - name: "id"
-        in: "path"
-        description: "book id"
+      - name: id
+        in: path
+        description: book id
         required: true
-        type: "integer"
+        type: integer
       responses:
         200:
-          description: "search results matching criteria"
+          description: search results matching criteria
           schema:
-            $ref: "#/definitions/inline_response_200"
+            $ref: '#/definitions/inline_response_200'
         404:
-          description: "server error"
+          description: server error
           schema:
-            $ref: "#/definitions/inline_response_404"
-      x-swagger-router-controller: "AllUsers"
+            $ref: '#/definitions/inline_response_404'
+    delete:
+      tags:
+      - books/{id}
+      summary: DELETEs book object
+      description: Deletes a created book based by ID - does not support name. Returns deleted object.
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Book ID to delete
+        required: true
+        type: string
+      responses:
+        200:
+          description: Book was successfully deleted
+          schema:
+            $ref: '#/definitions/Book'
+        404:
+          description: server error
+          schema:
+            $ref: '#/definitions/inline_response_404'
+    patch:
+      tags:
+      - books/{id}
+      summary: PATCHs book object
+      description: Updates a created book based by ID - does not support name. Returns deleted object.
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Book ID to update
+        required: true
+        type: string
+      responses:
+        200:
+          description: Book was successfully updated
+          schema:
+            $ref: '#/definitions/Book'
+        404:
+          description: server error
+          schema:
+            $ref: '#/definitions/inline_response_404'
   /authors:
     get:
       tags:
-      - "allUsers"
-      summary: "searches authors"
-      description: "Returns array based on author search params."
-      operationId: "authorsGET"
+      - authors
+      summary: GETs array of author objects based on query
+      description: Returns array based on author search params.
       produces:
-      - "application/json"
+      - application/json
       parameters:
-      - name: "first_name"
-        in: "query"
-        description: "first name search parameter"
+      - name: first_name
+        in: query
+        description: first name search parameter
         required: false
-        type: "string"
-      - name: "last_name"
-        in: "query"
-        description: "last name search parameter"
+        type: string
+      - name: last_name
+        in: query
+        description: last name search parameter
         required: false
-        type: "string"
+        type: string
       responses:
         200:
-          description: "book successfully created"
+          description: Authors successfully retrived
           schema:
-            $ref: "#/definitions/Authors"
+            $ref: '#/definitions/Authors'
         404:
-          description: "server error"
+          description: server error
           schema:
-            $ref: "#/definitions/inline_response_404"
-      x-swagger-router-controller: "AllUsers"
+            $ref: '#/definitions/inline_response_404'
+    post:
+      tags:
+      - authors
+      summary: POSTs an author object to our DB
+      description: Returns object w/ID.
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: author object
+        description: author object
+        required: true
+        schema:
+          $ref: '#/definitions/Author_noID'
+      responses:
+        201:
+          description: Book object that was created
+          schema:
+            $ref: '#/definitions/Author'
+        404:
+          description: server error
+          schema:
+            $ref: '#/definitions/inline_response_404'
   /authors/{id}:
     get:
       tags:
-      - "allUsers"
-      summary: "returns author object"
-      description: "Query for a specific author by ID."
-      operationId: "authorsIdGET"
+      - authors/{id}
+      summary: GETS an author object
+      description: Query for a specific author by ID.
       produces:
-      - "application/json"
+      - application/json
       parameters:
-      - name: "id"
-        in: "path"
-        description: "book id"
+      - name: id
+        in: path
+        description: book id
         required: true
-        type: "integer"
+        type: integer
       responses:
         200:
-          description: "search results matching criteria"
+          description: search results matching criteria
           schema:
-            $ref: "#/definitions/inline_response_200_1"
+            $ref: '#/definitions/inline_response_200_1'
         404:
-          description: "server error"
+          description: server error
           schema:
-            $ref: "#/definitions/inline_response_404"
-      x-swagger-router-controller: "AllUsers"
+            $ref: '#/definitions/inline_response_404'
+    delete:
+      tags:
+      - authors/{id}
+      summary: DELETEs author object
+      description: Deletes a created book based by ID - does not support name. Returns deleted object.
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Book ID to delete
+        required: true
+        type: string
+      responses:
+        200:
+          description: Book was successfully deleted
+          schema:
+            $ref: '#/definitions/Book'
+        404:
+          description: server error
+          schema:
+            $ref: '#/definitions/inline_response_404'
+    patch:
+      tags:
+      - authors/{id}
+      summary: PATCHs author object
+      description: Updates a created author based by ID - does not support name. Returns deleted object.
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Book ID to update
+        required: true
+        type: string
+      responses:
+        200:
+          description: Author was successfully updated
+          schema:
+            $ref: '#/definitions/Author'
+        404:
+          description: server error
+          schema:
+            $ref: '#/definitions/inline_response_404'
+  /subjects:
+    get:
+      tags:
+      - books
+      summary: Retrives an array of book objects scoped to title or authorID.
+      description: This resource is used to search our book database, and retrieve a set of objects related to your query. If there are no objects to return, the API will still return a 200 Status, but the "results" set will be an empty array and should be accounted for something else that is here.
+      produces:
+      - application/json
+      parameters:
+      - name: title
+        in: query
+        description: Title string to query. API will return both whole and partial matches dependent on the *fullMatch* parameter.
+        required: false
+        type: string
+      - name: fullMatch
+        in: query
+        description: Boolean value of whether or not to return and exact match to the title query string.
+        required: false
+        type: boolean
+      - name: authorID
+        in: query
+        description: ID of author to retrieve related books. Similar functionality can be found by querying */authors/{id}/books* if that level is desired.
+        required: false
+        type: integer
+      responses:
+        404:
+          description: server error
+          schema:
+            $ref: '#/definitions/inline_response_404'
+        200:
+          description: Array of book objects is returned based on search criterias
+          schema:
+            $ref: '#/definitions/Books'
 definitions:
   Books:
-    type: "object"
+    type: object
     required:
-    - "results"
-    - "status"
+    - results
+    - status
     properties:
       status:
-        type: "integer"
+        type: integer
         example: 200
       results:
-        type: "array"
+        type: array
         example:
         - id: "101"
-          title: "A Game of Thrones"
+          title: A Game of Thrones
           author_id: 254
-          _link: "/books/101"
+          _link: /books/101
         - id: "102"
-          title: "A Clash of Kings"
+          title: A Clash of Kings
           author_id: 254
-          _link: "/books/102"
+          _link: /books/102
         - id: "103"
-          title: "A Storm of Swords"
+          title: A Storm of Swords
           author_id: 254
-          _link: "/books/103"
+          _link: /books/103
         - id: "104"
-          title: "A Feast for Crows"
+          title: A Feast for Crows
           author_id: 254
-          _link: "/books/104"
+          _link: /books/104
         items:
-          type: "object"
+          type: object
           properties: {}
-  Book:
-    type: "object"
+    example:
+      results:
+      - id: "101"
+        title: A Game of Thrones
+        author_id: 254
+        _link: /books/101
+      - id: "102"
+        title: A Clash of Kings
+        author_id: 254
+        _link: /books/102
+      - id: "103"
+        title: A Storm of Swords
+        author_id: 254
+        _link: /books/103
+      - id: "104"
+        title: A Feast for Crows
+        author_id: 254
+        _link: /books/104
+      status: 200
+  Book_noID:
+    type: object
     required:
-    - "_link"
-    - "author"
-    - "description"
-    - "id"
-    - "title"
+    - author
+    - description
+    - title
     properties:
-      id:
-        type: "integer"
-        example: 105
       title:
-        type: "string"
-        example: "A Game of Thrones"
+        type: string
+        example: A G
       description:
-        type: "string"
-        example: "From a master of contemporary fantasy comes the first novel of a\
-          \ landmark series..."
+        type: string
+        example: From a master of contemporary fantasy comes the first novel of a landmark series...
       author:
-        $ref: "#/definitions/Author"
-      _link:
-        type: "string"
-        example: "/books/105"
+        $ref: '#/definitions/Author'
+    example:
+      author:
+        _link: /authors/254
+        last_name: Martin
+        id: 254
+        first_name: George R.R.
+      description: From a master of contemporary fantasy comes the first novel of a landmark series...
+      title: A G
   Author:
-    type: "object"
+    type: object
     required:
-    - "_link"
-    - "first_name"
-    - "id"
-    - "last_name"
+    - _link
+    - first_name
+    - id
+    - last_name
     properties:
       id:
-        type: "integer"
+        type: integer
         example: 254
       first_name:
-        type: "string"
-        example: "George R.R."
+        type: string
+        example: George R.R.
       last_name:
-        type: "string"
-        example: "Martin"
+        type: string
+        example: Martin
       _link:
-        type: "string"
-        example: "/authors/254"
-  Authors:
-    type: "object"
+        type: string
+        example: /authors/254
+    example:
+      _link: /authors/254
+      last_name: Martin
+      id: 254
+      first_name: George R.R.
+  Book:
+    type: object
     required:
-    - "results"
-    - "status"
+    - _link
+    - author
+    - description
+    - id
+    - title
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+        maxLength: 5
+      description:
+        type: string
+      author:
+        $ref: '#/definitions/Author'
+      _link:
+        type: string
+    example:
+      _link: _link
+      author:
+        _link: /authors/254
+        last_name: Martin
+        id: 254
+        first_name: George R.R.
+      description: description
+      id: 0
+      title: title
+  Authors:
+    type: object
+    required:
+    - results
+    - status
     properties:
       status:
-        type: "integer"
+        type: integer
         example: 200
       results:
-        type: "array"
+        type: array
         example:
         - id: "254"
-          first_name: "George R.R."
-          last_name: "Martin"
-          _link: "/authors/254"
+          first_name: George R.R.
+          last_name: Martin
+          _link: /authors/254
         - id: "255"
-          first_name: "Frank"
-          last_name: "Herbert"
-          _link: "/authors/255"
+          first_name: Frank
+          last_name: Herbert
+          _link: /authors/255
         - id: "256"
-          first_name: "Andy"
-          last_name: "Weir"
-          _link: "/authors/256"
+          first_name: Andy
+          last_name: Weir
+          _link: /authors/256
         items:
-          type: "object"
+          type: object
           properties: {}
+    example:
+      results:
+      - id: "254"
+        first_name: George R.R.
+        last_name: Martin
+        _link: /authors/254
+      - id: "255"
+        first_name: Frank
+        last_name: Herbert
+        _link: /authors/255
+      - id: "256"
+        first_name: Andy
+        last_name: Weir
+        _link: /authors/256
+      status: 200
+  Author_noID:
+    type: object
+    required:
+    - first_name
+    - last_name
+    properties:
+      first_name:
+        type: string
+        example: George R.R.
+      last_name:
+        type: string
+        example: Martin
+    example:
+      last_name: Martin
+      first_name: George R.R.
   inline_response_404:
     properties:
       status:
-        type: "integer"
+        type: integer
         example: 404
-        description: "status code"
+        description: status code
       message:
-        type: "string"
-        example: "Resource not found"
-        description: "status string"
+        type: string
+        example: Resource not found
+        description: status string
   inline_response_200:
     properties:
       status:
-        type: "integer"
+        type: integer
         example: 200
-        description: "status code"
+        description: status code
       result:
-        $ref: "#/definitions/Book"
+        $ref: '#/definitions/Book'
+    example:
+      result:
+        _link: _link
+        author:
+          _link: /authors/254
+          last_name: Martin
+          id: 254
+          first_name: George R.R.
+        description: description
+        id: 0
+        title: title
+      status: 200
   inline_response_200_1:
     properties:
       status:
-        type: "integer"
+        type: integer
         example: 200
-        description: "status code"
+        description: status code
       result:
-        $ref: "#/definitions/Author"
+        $ref: '#/definitions/Author'
+    example:
+      result:
+        _link: /authors/254
+        last_name: Martin
+        id: 254
+        first_name: George R.R.
+      status: 200
+x-apigee-id: test API
+x-ibm-name: new-library-api
