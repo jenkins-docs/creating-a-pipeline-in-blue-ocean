@@ -10,6 +10,8 @@ pipeline {
     stage('Build') {
       steps {
         sh 'npm install'
+        sh '''
+npm install forever -g'''
       }
     }
     stage('Test') {
