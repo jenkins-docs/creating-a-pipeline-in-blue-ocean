@@ -14,7 +14,7 @@ paths:
       tags:
       - books
       summary: Retrives an array of book objects scoped to title or authorID.
-      description: This resource is used to search our book database, and retrieve a set of objects related to your query. If there are no objects to return, the API will still return a 200 Status, but the "results" set will be an empty array and should be accounted for something else that is he
+      description: This is a new description
       produces:
       - application/json
       parameters:
