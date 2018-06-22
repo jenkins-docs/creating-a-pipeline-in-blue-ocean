@@ -11,7 +11,7 @@
     "swagger-tools": "0.10.1"
   },
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "forever start -c 'node ./src/index.js' ./src/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
