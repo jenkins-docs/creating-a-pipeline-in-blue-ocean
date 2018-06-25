@@ -14,7 +14,7 @@ paths:
       tags:
       - books
       summary: Retrives an array of book objects scoped to title or authorID.
-      description: This is the primary resource for retriveing book information from the API. Books are filtered by a handful of query parameters, or returned as an index
+      description: This is the primary resource for retriveing book information from the API. Books are filtered by a handful of query parameters, or returned as an index.
       produces:
       - application/json
       parameters:
