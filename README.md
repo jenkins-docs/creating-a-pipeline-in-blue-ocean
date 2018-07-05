@@ -1,5 +1,6 @@
 # creating-a-pipeline-in-blue-ocean
 
+
 This repository is for the
 [Create a Pipeline in Blue Ocean](https://jenkins.io/doc/tutorials/create-a-pipeline-in-blue-ocean/)
 tutorial in the [Jenkins User Documentation](https://jenkins.io/doc/).
