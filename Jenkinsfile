@@ -18,6 +18,9 @@ pipeline {
     stage('compile') {
       steps {
         sh '''uname -a'''
+        sh '''curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py '''
+        sh '''python get-pip.py '''
+        sh '''pip --version '''
         sh '''pip install Django'''
       }
     }
