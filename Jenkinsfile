@@ -17,8 +17,8 @@ pipeline {
     }
     stage('compile') {
       steps {
-        sh '''uname -a
-'''
+        sh '''uname -a'''
+        sh '''pip install Django'''
       }
     }
   }
