@@ -17,8 +17,8 @@ pipeline {
     }
     stage('compile') {
       steps {
-        sh '''docker ps
-uname -a
+        sh '''sudo docker ps
+&& uname -a
 '''
       }
     }
