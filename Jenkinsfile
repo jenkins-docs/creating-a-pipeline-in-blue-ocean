@@ -5,7 +5,7 @@ pipeline {
       steps {
         input(submitterParameter: 'name: \'Version\'', message: 'Input Version')
         sh '''docker build -t test:1.0.0 .
-docker push test:1.0.0'''
+docker push ${REGISTRY}/test:1.0.0'''
       }
     }
   }
