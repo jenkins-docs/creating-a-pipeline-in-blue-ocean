@@ -3,14 +3,16 @@ pipeline {
   stages {
     stage('Build && push') {
       steps {
-        sh '''echo "${VERSION}"
+        sh '''VERSION="$(git rev-parse --short HEAD)"
+echo "${VERSION}"
 docker build --force-rm -t ${REGISTRY}/test:${VERSION} .
-docker push ${REGISTRY}/test:${VERSION}'''
+docker push ${REGISTRY}/test:${VERSION}
+docker rmi ${REGISTRY}/test:${VERSION}'''
       }
     }
   }
   environment {
     CI = 'true'
-    VERSION = '${sh(git rev-parse --short HEAD)}'
+    VERSION = ''
   }
 }
