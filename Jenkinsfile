@@ -3,13 +3,13 @@ pipeline {
   stages {
     stage('Build && push') {
       steps {
-        input(submitterParameter: 'name: \'Version\'', message: 'Input Version')
-        sh '''docker build -t test:1.0.0 .
-docker push ${REGISTRY}/test:1.0.0'''
+        sh '''docker build -t ${REGISTRY}/test:${VERSION} .
+docker push ${REGISTRY}/test:${VERSION}'''
       }
     }
   }
   environment {
     CI = 'true'
+    VERSION = '1.0.1'
   }
 }
