@@ -11,6 +11,6 @@ docker push ${REGISTRY}/test:${VERSION}'''
   }
   environment {
     CI = 'true'
-    VERSION = '"${sh(git rev-parse --short HEAD)}"'
+    VERSION = '${sh(git rev-parse --short HEAD)}'
   }
 }
