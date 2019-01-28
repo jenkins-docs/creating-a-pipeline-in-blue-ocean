@@ -1,7 +1,9 @@
 pipeline {
   agent any
   stages {
-        stage('Build && push') {
+    stage('Build && Push') {
+      parallel {
+        stage('Branch Master') {
 	  when {
 	    branch 'master'
 	  }
@@ -13,7 +15,7 @@ docker push ${REGISTRY}/test:${VERSION}
 docker rmi ${REGISTRY}/test:${VERSION}'''
           }
         }
-        stage('Build && Push') {
+        stage('Branch branch-1') {
 	  when {
 	    branch 'branch-1'
 	  }
@@ -25,6 +27,8 @@ docker push ${REGISTRY}/test:${VERSION}
 docker rmi ${REGISTRY}/test:${VERSION}'''
           }
         }
+      }
+    }
   }
   environment {
     CI = 'true'
