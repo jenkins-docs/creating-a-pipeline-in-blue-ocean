@@ -33,12 +33,12 @@ pipeline {
       parallel {
         stage('Deploy QA') {
             steps {
-                h 'echo  \"Deploy QA\"'
+                sh 'echo  \"Deploy QA\"'
             }
         }
         stage('Deploy Perf') {
             steps {
-                h 'echo  \"Deploy Perf\"'
+                sh 'echo  \"Deploy Perf\"'
             }
         }
       }

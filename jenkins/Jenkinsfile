@@ -7,24 +7,18 @@ pipeline {
 
   }
   stages {
-    stage('Build') {
-      steps {
-        sh 'npm install'
-      }
-    }
-    stage('Test') {
-      environment {
-        CI = 'true'
-      }
-      steps {
-        sh './jenkins/scripts/test.sh'
-      }
-    }
-    stage('Deliver') {
-      steps {
-        sh './jenkins/scripts/deliver.sh'
-        input 'Finished using the web site? (Click "Proceed" to continue)'
-        sh './jenkins/scripts/kill.sh'
+    stage('Automation E2E tests') {
+      parallel {
+        stage('Full UI Tests') {
+            steps {
+                sh 'echo  \"Full UI Tests\"'
+            }
+        }
+        stage('Full DV Tests') {
+            steps {
+                sh 'echo  \"Full UI Tests\"'
+            }
+        }
       }
     }
   }
