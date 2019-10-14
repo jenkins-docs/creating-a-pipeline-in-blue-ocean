@@ -20,10 +20,14 @@ pipeline {
     }
 
     stage('Deploy Dev') {
-      
+      steps {
+        sh 'echo  \"Deploy Dev\"'
+      }
     }
     stage('Smoke Test') {
-      
+      steps {
+        sh 'echo  \"Smoke Test\"'
+      }
     }
     stage('Deploy QA') {
       parallel {
