@@ -9,8 +9,42 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'npm install'
+        sh 'npm install'  
       }
+    }
+
+    stage('Test') {
+      steps {
+        sh 'echo  \"Test\"'
+      }
+    }
+
+    stage('Deploy Dev') {
+      
+    }
+    stage('Smoke Test') {
+      
+    }
+    stage('Deploy QA') {
+      parallel(
+        'Deploy QA': {
+          echo "Deploy QA"
+        },
+        'Deploy Perf': {
+          echo "Deploy Perf"
+        }
+      )
+    }
+
+    stage('Functional Test') {
+      parallel(
+        'Full E2E': {
+          echo "Full E2E"
+        },
+        'Full DV': {
+          echo "Full DV"
+        }
+      )
     }
   }
 }
