@@ -26,25 +26,18 @@ pipeline {
       
     }
     stage('Deploy QA') {
-      parallel(
-        'Deploy QA': {
-          echo "Deploy QA"
-        },
-        'Deploy Perf': {
-          echo "Deploy Perf"
+      parallel {
+        stage('Deploy QA') {
+            steps {
+                h 'echo  \"Deploy QA\"'
+            }
         }
-      )
-    }
-
-    stage('Functional Test') {
-      parallel(
-        'Full E2E': {
-          echo "Full E2E"
-        },
-        'Full DV': {
-          echo "Full DV"
+        stage('Deploy Perf') {
+            steps {
+                h 'echo  \"Deploy Perf\"'
+            }
         }
-      )
+      }
     }
   }
 }
