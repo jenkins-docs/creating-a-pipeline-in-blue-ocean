@@ -35,17 +35,15 @@ pipeline {
               sh 'echo  \"Smoke Test\"'
             }
           }
-          parallel {
-            stage('Deploy QA') {
-                steps {
-                    sh 'echo  \"Deploy QA\"'
-                }
-            }
-            stage('Deploy Perf') {
-                steps {
-                    sh 'echo  \"Deploy Perf\"'
-                }
-            }
+          stage('Deploy QA') {
+              steps {
+                  sh 'echo  \"Deploy QA\"'
+              }
+          }
+          stage('Deploy Perf') {
+              steps {
+                  sh 'echo  \"Deploy Perf\"'
+              }
           }
         }
 
