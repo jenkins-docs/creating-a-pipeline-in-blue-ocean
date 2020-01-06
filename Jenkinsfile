@@ -9,7 +9,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'npm install -g cnpm --registry=https://registry.npm.taobao.org'
+        sh '''npm install -g cnpm --registry=https://registry.npm.taobao.org
+cnpm install'''
       }
     }
 
