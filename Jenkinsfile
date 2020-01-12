@@ -16,6 +16,7 @@ pipeline {
         }
 
         stage('Blah') {
+          agent any
           steps {
             sh 'docker ps'
           }
