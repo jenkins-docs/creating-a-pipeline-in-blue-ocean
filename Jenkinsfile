@@ -7,21 +7,9 @@ pipeline {
 
   }
   stages {
-    stage('Build') {
-      parallel {
-        stage('Build') {
-          steps {
-            sh 'npm install'
-          }
-        }
-
-        stage('Blah') {
-          agent any
-          steps {
-            sh 'docker ps'
-          }
-        }
-
+    stage('Blah') {
+      steps {
+        sh 'docker ps'
       }
     }
 
