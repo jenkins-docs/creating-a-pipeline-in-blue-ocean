@@ -9,8 +9,19 @@ pipeline {
   }
   stages {
     stage('Printenv') {
-      steps {
-        sh 'printenv'
+      parallel {
+        stage('Printenv') {
+          steps {
+            sh 'printenv'
+          }
+        }
+
+        stage('os-release') {
+          steps {
+            sh 'cat /etc/os-release'
+          }
+        }
+
       }
     }
 
