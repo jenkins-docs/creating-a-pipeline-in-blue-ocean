@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'sudo /bin/npm install'
+        sh 'npm install'
       }
     }
 
