@@ -2,6 +2,7 @@ pipeline {
   agent {
     docker {
       image 'node:lts-alpine'
+      // Required to access app from host machine
       args '-p 3000:3000'
     }
 
