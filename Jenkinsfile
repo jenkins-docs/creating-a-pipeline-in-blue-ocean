@@ -23,6 +23,7 @@ pipeline {
     stage('Deliver') {
       steps {
         sh './jenkins/scripts/deliver.sh'
+        // User interactive gate
         input 'Finished using the web site? (Select "Proceed" to continue)'
         sh './jenkins/scripts/kill.sh'
       }
