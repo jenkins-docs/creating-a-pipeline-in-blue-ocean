@@ -30,6 +30,7 @@ pipeline {
       }
     }
   }
+  
   post {
       success {
         echo "All completed"
