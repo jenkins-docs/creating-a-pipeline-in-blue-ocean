@@ -10,14 +10,12 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        // Restoring packages
         sh 'npm install'
       }
     }
 
     stage('Test') {
       steps {
-        // Run test script
         sh './jenkins/scripts/test.sh'
       }
     }
@@ -25,7 +23,6 @@ pipeline {
     stage('Deliver') {
       steps {
         sh './jenkins/scripts/deliver.sh'
-        // User interactive input
         input 'Finished using the web site? (Select "Proceed" to continue)'
         sh './jenkins/scripts/kill.sh'
       }
