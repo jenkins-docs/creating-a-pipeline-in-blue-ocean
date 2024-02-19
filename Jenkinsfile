@@ -29,11 +29,11 @@ pipeline {
         sh './jenkins/scripts/kill.sh'
       }
     }
-    post {
+  }
+  post {
       success {
         echo "All completed"
       }
-    }
   }
   
   environment {
