@@ -29,8 +29,13 @@ pipeline {
         sh './jenkins/scripts/kill.sh'
       }
     }
-
+    post {
+      success {
+        echo "All completed"
+      }
+    }
   }
+  
   environment {
     CI = 'true'
   }
