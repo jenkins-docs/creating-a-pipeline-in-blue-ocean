@@ -13,7 +13,22 @@ pipeline {
         sh 'npm install'
       }
     }
-
+    stage('Fix') {
+      when {
+        branch 'fix-*'
+      }
+      steps {
+        echo 'Fix branch'
+      }
+    }
+    stage('PR') {
+      when {
+        branch 'PR-*'
+      }
+      steps {
+        echo 'Pull request branch'
+      }
+    }
     stage('Test') {
       steps {
         // simple test script
